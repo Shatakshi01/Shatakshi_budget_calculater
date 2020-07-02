@@ -3,10 +3,12 @@ import './App.css';
 import { ExpensesForm } from './components/ExpensesForm';
 import { ExpensesList } from './components/ExpensesList';
 
-
+const initialExpenses = localStorage.getItem("expenses")
+  ? JSON.parse(localStorage.getItem("expenses"))
+  : [];
 function App() {
 
-  var initialExpenses=[];
+  
   // useState hooks 
   var [expenses, setExpenses]=useState(initialExpenses)
   console.log(expenses);
@@ -15,6 +17,11 @@ function App() {
   const [amount, setAmount] = useState(" ")
   
   //useEffect
+  useEffect(() => {
+    console.log("called");
+
+    localStorage.setItem("expenses", JSON.stringify(expenses));
+  }, [expenses]);
   
 
 
@@ -66,10 +73,12 @@ function App() {
       </main>
 
       <h1>
-        total spending :<span className='total'>
-          Rs. {expenses.reduce((acc,curr)=>{
-            return acc+= parseInt(curr.amount);
-          },0)}
+        total spending :
+        <span className="total">
+          Rs. 
+          {expenses.reduce((acc, curr) => {
+            return (acc += parseInt(curr.amount));
+          }, 0)}
         </span>
       </h1>
     </>
