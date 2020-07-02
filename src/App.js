@@ -1,23 +1,21 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import './App.css';
 import { ExpensesForm } from './components/ExpensesForm';
 import { ExpensesList } from './components/ExpensesList';
 
 
 function App() {
-  //const id2=0;
 
- var  initialExpenses= [
-    {charge:'rent', amount:1600},
-    {charge:'Car payment', amount:2000 }
-  ];
-
+  var initialExpenses=[];
   // useState hooks 
   var [expenses, setExpenses]=useState(initialExpenses)
   console.log(expenses);
   const [charge, setCharge] = useState(" ")
 
   const [amount, setAmount] = useState(" ")
+  
+  //useEffect
+  
 
 
   // functions  
@@ -49,16 +47,7 @@ function App() {
   }
 
   var clearItems = ()=>{
-    console.log('list cleared');
-    
-  }
-  var handleDelete= id=>{
-    console.log('item deleted')
-
-  }
-
-  var handleEdit= id=>{
-    console.log(`id delete: ${id}`);
+    setExpenses([])
     
   }
   
@@ -72,8 +61,7 @@ function App() {
       handleSubmit={handleSubmit}
       handleCharge={handleCharge} />
       <ExpensesList expenses= {expenses} 
-      handleDelete={handleDelete}
-      handleEdit={handleEdit}
+      
       clearItems ={clearItems}/>
       </main>
 
